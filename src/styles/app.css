@@ -1,0 +1,151 @@
+/* Sidebar Styles */
+.sidebar {
+    width: 80px; /* Icon-only width */
+    transition: width 0.3s ease;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #2c3e50; /* Adjust sidebar color if needed */
+    overflow: hidden;
+}
+
+.sidebar.expanded {
+    width: 250px; /* Expanded width to show text */
+}
+
+
+.sidebar .nav-link:hover {
+    background-color: #34495e; /* Hover background color */
+}
+
+/* Only display icon by default */
+.sidebar .nav-link .icon {
+    font-size: 1.5rem;
+    margin-right: 0; /* No margin when showing icon only */
+}
+
+/* Hide text by default */
+.sidebar .nav-link .text {
+    display: none;
+    margin-left: 10px;
+}
+
+/* Show text on hover */
+.sidebar:hover .nav-link .text {
+    display: inline;
+}
+
+/* Main Content Adjustments */
+.main-content {
+    margin-left: 80px; /* Match sidebar width when collapsed */
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.expanded ~ .main-content {
+    margin-left: 250px; 
+}
+
+
+.sidebar .sidebar-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Sidebar nav items for collapsed state */
+.sidebar:not(.expanded) .nav-link span {
+    display: none; /* Hide text when sidebar is collapsed */
+}
+
+.sidebar .nav-link:hover {
+    background-color: #2c3e50;
+    color: #ffffff;
+}
+
+.sidebar .nav-link i {
+    margin-right: 0.5rem;
+    font-size: 1rem; /* Adjust icon size */
+    color: #bdc3c7;
+    transition: color 0.3s ease;
+}
+
+.sidebar .nav-link:hover i {
+    color: #ffffff;
+}
+
+.sidebar .pin-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+/* Hover and pin functionality */
+.sidebar:hover,
+.sidebar.expanded {
+    width: 250px; /* Expanded state when hovered or pinned */
+}
+
+.sidebar:not(.expanded):not(:hover) {
+    width: 80px; /* Collapsed width */
+}
+
+/* Main content adjustment when sidebar is expanded or collapsed */
+.main-content {
+    margin-left: 80px; /* Default margin for collapsed sidebar */
+    transition: margin-left 0.3s ease;
+    padding: 1rem;
+}
+
+.sidebar.expanded ~ .main-content {
+    margin-left: 250px; /* Adjust margin when sidebar is expanded */
+}
+
+/* Adjust header layout */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+header .input-group {
+    width: 50%;
+}
+
+header .d-flex {
+    align-items: center;
+}
+
+header .ms-3 {
+    margin-left: 1rem;
+}
+
+.badge {
+    background-color: #4caf50;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-left: auto;
+}
+
+.alert-icon {
+    color: #ff5252;
+    margin-left: auto;
+}
