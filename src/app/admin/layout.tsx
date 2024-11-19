@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import '@/FE/code/styles/app.css';
+import '../../styles/app.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AiOutlineDashboard, AiOutlineWallet, AiOutlineBell, AiOutlineSetting, AiOutlineDown, AiOutlinePushpin } from 'react-icons/ai';
 import { FaClinicMedical, FaUser } from 'react-icons/fa';
@@ -38,9 +38,9 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
             </div>
 
             <ul className="nav flex-column mt-4">
-              
+
                 <li className="nav-item my-2">
-                <div onClick={toggleHospitalMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
+                    <div onClick={toggleHospitalMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
                         <FaClinicMedical className="me-2" /> <span>Bài Đăng</span>
                         <AiOutlineDown className={`ms-auto ${isHospitalMenuOpen ? 'rotate-icon' : ''}`} />
                     </div>
@@ -56,7 +56,17 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
                                     <span> Các Tương Tác</span>
                                 </Link>
                             </li>
-                           
+                            <li className="nav-item my-2">
+                                <Link href="/admin/hospital/staff" className="nav-link text-white">
+                                    <span> Ràng buộc</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item my-2">
+                                <Link href="/admin/hospital/staff" className="nav-link text-white">
+                                    <span> Liên hệ</span>
+                                </Link>
+                            </li>
+
                         </ul>
                     )}
                 </li>
@@ -78,7 +88,17 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
                                     <span> Các Tương Tác</span>
                                 </Link>
                             </li>
-                           
+                            <li className="nav-item my-2">
+                                <Link href="/admin/hospital/staff" className="nav-link text-white">
+                                    <span> Phạm vi tìm kiếm</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item my-2">
+                                <Link href="/admin/hospital/staff" className="nav-link text-white">
+                                    <span> Cá nhân hóa người dùng</span>
+                                </Link>
+                            </li>
+
                         </ul>
                     )}
                 </li>
@@ -92,24 +112,44 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
     );
 };
 
-const Header = ({ toggleSettings }) => (
-    <header className="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
-        <div className="input-group w-50">
-            <input type="text" placeholder="Search something..." className="form-control rounded-pill shadow-sm" />
-            <button className="btn btn-outline-secondary rounded-circle ms-2" type="button">
-                <BsSearch />
-            </button>
-        </div>
-        <div className="d-flex align-items-center">
-            <AiOutlineBell className="ms-3" size={24} />
-            <AiOutlineSetting className="ms-3" size={24} onClick={toggleSettings} style={{ cursor: 'pointer' }} />
-            <div className="ms-3 d-flex align-items-center">
-                <FaUser className="me-2" />
-                <span>User Profile</span>
+const Header = ({ toggleSettings }) => {
+    const [selectedLanguage, setSelectedLanguage] = useState('en');
+
+    const handleLanguageChange = (event) => {
+        setSelectedLanguage(event.target.value);
+    };
+
+    return (
+        <header className="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
+            <div className="input-group w-50">
+                <input type="text" placeholder="Search something..." className="form-control rounded-pill shadow-sm" />
+                <button className="btn btn-outline-secondary rounded-circle ms-2" type="button">
+                    <BsSearch />
+                </button>
             </div>
-        </div>
-    </header>
-);
+            <div className="d-flex align-items-center">
+                <AiOutlineBell className="ms-3" size={24} />
+                <AiOutlineSetting className="ms-3" size={24} onClick={toggleSettings} style={{ cursor: 'pointer' }} />
+                <div className="ms-3 d-flex align-items-center">
+                    <FaUser className="me-2" />
+                    <span>User Profile</span>
+                </div>
+                <div className="ms-3">
+                    <select
+                        value={selectedLanguage}
+                        onChange={handleLanguageChange}
+                        className="form-select form-select-sm"
+                        style={{ width: 'auto' }}
+                    >
+                        <option value="en">English</option>
+                        <option value="vi">Vietnamese</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+    );
+};
+
 
 const AdminLayout = ({ children }) => {
     const [isSidebarPinned, setSidebarPinned] = useState(false);
