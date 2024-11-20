@@ -9,11 +9,21 @@ import { FaClinicMedical, FaUser } from 'react-icons/fa';
 import { BsSearch } from 'react-icons/bs';
 
 const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
-    const [isHospitalMenuOpen, setHospitalMenuOpen] = useState(false);
+    const [isBaiDangMenuOpen, setBaiDangMenuOpen] = useState(false);
+    const [isNhaTroMenuOpen, setNhaTroMenuOpen] = useState(false);
+    const [isSocialMenuOpen, setSocialMenuOpen] = useState(false);
     const [isSidebarHovered, setSidebarHovered] = useState(false);
 
-    const toggleHospitalMenu = () => {
-        setHospitalMenuOpen(!isHospitalMenuOpen);
+    const toggleBaiDangMenu = () => {
+        setBaiDangMenuOpen(!isBaiDangMenuOpen);
+    };
+
+    const toggleNhaTroMenu = () => {
+        setNhaTroMenuOpen(!isNhaTroMenuOpen);
+    };
+
+    const toggleSocialMenu = () => {
+        setSocialMenuOpen(!isSocialMenuOpen);
     };
 
     const handleMouseEnter = () => {
@@ -26,7 +36,7 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
 
     return (
         <nav
-            className={`sidebar ${isSidebarPinned || isSidebarHovered ? 'expanded' : ''} bg-dark text-white vh-100 p-3`}
+            className={`sidebar ${isSidebarPinned || isSidebarHovered ? 'expanded' : ''} bg-dark text-white vh-100 p-3 overflow-auto`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -38,13 +48,13 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
             </div>
 
             <ul className="nav flex-column mt-4">
-
+                {/* Menu Bài Đăng */}
                 <li className="nav-item my-2">
-                    <div onClick={toggleHospitalMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
+                    <div onClick={toggleBaiDangMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
                         <FaClinicMedical className="me-2" /> <span>Bài Đăng</span>
-                        <AiOutlineDown className={`ms-auto ${isHospitalMenuOpen ? 'rotate-icon' : ''}`} />
+                        <AiOutlineDown className={`ms-auto ${isBaiDangMenuOpen ? 'rotate-icon' : ''}`} />
                     </div>
-                    {isHospitalMenuOpen && (
+                    {isBaiDangMenuOpen && (
                         <ul className="nav flex-column ms-3">
                             <li className="nav-item my-2">
                                 <Link href="/admin/crud_baidang" className="nav-link text-white">
@@ -53,30 +63,30 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
                             </li>
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Các Tương Tác</span>
+                                    <span>Các Tương Tác</span>
                                 </Link>
                             </li>
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Ràng buộc</span>
+                                    <span>Ràng buộc</span>
                                 </Link>
                             </li>
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Liên hệ</span>
+                                    <span>Liên hệ</span>
                                 </Link>
                             </li>
-
                         </ul>
                     )}
                 </li>
 
+                {/* Menu Nhà Trọ */}
                 <li className="nav-item my-2">
-                    <div onClick={toggleHospitalMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
+                    <div onClick={toggleNhaTroMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
                         <FaClinicMedical className="me-2" /> <span>Nhà Trọ</span>
-                        <AiOutlineDown className={`ms-auto ${isHospitalMenuOpen ? 'rotate-icon' : ''}`} />
+                        <AiOutlineDown className={`ms-auto ${isNhaTroMenuOpen ? 'rotate-icon' : ''}`} />
                     </div>
-                    {isHospitalMenuOpen && (
+                    {isNhaTroMenuOpen && (
                         <ul className="nav flex-column ms-3">
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/departments" className="nav-link text-white">
@@ -85,27 +95,53 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
                             </li>
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Các Tương Tác</span>
+                                    <span>Các Tương Tác</span>
                                 </Link>
                             </li>
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Phạm vi tìm kiếm</span>
+                                    <span>Phạm vi tìm kiếm</span>
                                 </Link>
                             </li>
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Cá nhân hóa người dùng</span>
+                                    <span>Cá nhân hóa người dùng</span>
                                 </Link>
                             </li>
-
                         </ul>
                     )}
                 </li>
+
+                {/* Menu Social */}
                 <li className="nav-item my-2">
-                    <Link href="/admin/sales" className="nav-link text-white d-flex align-items-center">
-                        <AiOutlineDashboard className="me-2" /> <span>Social</span> <span className="badge bg-success ms-auto">5</span>
-                    </Link>
+                    <div onClick={toggleSocialMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
+                        <AiOutlineDashboard className="me-2" /> <span>Social</span>
+                        <AiOutlineDown className={`ms-auto ${isSocialMenuOpen ? 'rotate-icon' : ''}`} />
+                    </div>
+                    {isSocialMenuOpen && (
+                        <ul className="nav flex-column ms-3">
+                            <li className="nav-item my-2">
+                                <Link href="/admin/social/voucher" className="nav-link text-white">
+                                    <span>Ví Voucher</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item my-2">
+                                <Link href="/admin/social/game" className="nav-link text-white">
+                                    <span>Game Tương Tác</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item my-2">
+                                <Link href="/admin/social/short-video" className="nav-link text-white">
+                                    <span>Video Ngắn</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item my-2">
+                                <Link href="/admin/social/friends" className="nav-link text-white">
+                                    <span>Kết Bạn Bốn Phương</span>
+                                </Link>
+                            </li>
+                        </ul>
+                    )}
                 </li>
             </ul>
         </nav>
