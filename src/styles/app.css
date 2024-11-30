@@ -1,50 +1,88 @@
 /* Sidebar Styles */
 .sidebar {
-    width: 80px; /* Icon-only width */
+    width: 60px; /* Icon-only width */
     transition: width 0.3s ease;
     position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
-    background-color: #2c3e50; /* Adjust sidebar color if needed */
+    background-color: #092948; /* Sidebar background color */
     overflow: hidden;
+    z-index: 1000;
 }
 
 .sidebar.expanded {
-    width: 250px; /* Expanded width to show text */
+    width: 100px; /* Expanded width when pinned or hovered */
 }
 
-
-.sidebar .nav-link:hover {
-    background-color: #34495e; /* Hover background color */
+/* Default nav-link styles */
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Only display icon by default */
+/* Only display icons by default */
 .sidebar .nav-link .icon {
     font-size: 1.5rem;
-    margin-right: 0; /* No margin when showing icon only */
+    color: #bdc3c7;
+    margin-right: 0; /* Remove margin when only showing icons */
+    transition: color 0.3s ease;
 }
 
-/* Hide text by default */
-.sidebar .nav-link .text {
+/* Hide text and dropdown icons by default */
+.sidebar .nav-link .text,
+.sidebar .nav-link .dropdown-icon {
     display: none;
+}
+
+/* Hover and expanded state styles */
+.sidebar.expanded .nav-link .text,
+.sidebar:hover .nav-link .text {
+    display: inline; /* Show text on hover or expanded */
     margin-left: 10px;
 }
 
-/* Show text on hover */
-.sidebar:hover .nav-link .text {
-    display: inline;
+.sidebar.expanded .nav-link .dropdown-icon,
+.sidebar:hover .nav-link .dropdown-icon {
+    display: inline; /* Show dropdown icons */
+}
+
+/* Change hover background and icon colors */
+.sidebar .nav-link:hover {
+    background-color: #34495e;
+    color: #ffffff;
+}
+
+.sidebar .nav-link:hover .icon {
+    color: #ffffff;
+}
+
+/* Sidebar toggle button */
+.sidebar .pin-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.5rem;
 }
 
 /* Main Content Adjustments */
 .main-content {
-    margin-left: 80px; /* Match sidebar width when collapsed */
+    margin-left: 60px; /* Default margin when sidebar is collapsed */
     transition: margin-left 0.3s ease;
+    padding: 1rem;
 }
 
 .sidebar.expanded ~ .main-content {
-    margin-left: 250px; 
+    margin-left: 250px; /* Adjust margin when sidebar is expanded */
 }
+
 
 
 .sidebar .sidebar-header {

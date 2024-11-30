@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from 'react';
 import Link from 'next/link';
 import '@/FE/code/styles/app.css';
@@ -8,12 +7,18 @@ import { AiOutlineDashboard, AiOutlineWallet, AiOutlineBell, AiOutlineSetting, A
 import { FaClinicMedical, FaUser } from 'react-icons/fa';
 import { BsSearch } from 'react-icons/bs';
 
+
 const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
-    const [isHospitalMenuOpen, setHospitalMenuOpen] = useState(false);
+    const [isHospitalMenuOpen, setHospitalMenuOpen] = useState(false); // State for Bài Đăng
+    const [isDormitoryMenuOpen, setDormitoryMenuOpen] = useState(false); // State for Nhà Trọ
     const [isSidebarHovered, setSidebarHovered] = useState(false);
 
     const toggleHospitalMenu = () => {
-        setHospitalMenuOpen(!isHospitalMenuOpen);
+        setHospitalMenuOpen((prev) => !prev);
+    };
+
+    const toggleDormitoryMenu = () => {
+        setDormitoryMenuOpen((prev) => !prev);
     };
 
     const handleMouseEnter = () => {
@@ -26,7 +31,7 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
 
     return (
         <nav
-            className={`sidebar ${isSidebarPinned || isSidebarHovered ? 'expanded' : ''} bg-dark text-white vh-100 p-3`}
+        className={`sidebar ${isSidebarPinned || isSidebarHovered ? 'expanded' : ''}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -36,11 +41,13 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
                     <AiOutlinePushpin size={20} className={isSidebarPinned ? 'text-warning' : ''} />
                 </button>
             </div>
-
             <ul className="nav flex-column mt-4">
-              
+                {/* Menu Bài Đăng */}
                 <li className="nav-item my-2">
-                <div onClick={toggleHospitalMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
+                    <div
+                        onClick={toggleHospitalMenu}
+                        className="nav-link text-white d-flex align-items-center cursor-pointer"
+                    >
                         <FaClinicMedical className="me-2" /> <span>Bài Đăng</span>
                         <AiOutlineDown className={`ms-auto ${isHospitalMenuOpen ? 'rotate-icon' : ''}`} />
                     </div>
@@ -53,20 +60,23 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
                             </li>
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Các Tương Tác</span>
+                                    <span>Các Tương Tác</span>
                                 </Link>
                             </li>
-                           
                         </ul>
                     )}
                 </li>
 
+                {/* Menu Nhà Trọ */}
                 <li className="nav-item my-2">
-                    <div onClick={toggleHospitalMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
+                    <div
+                        onClick={toggleDormitoryMenu}
+                        className="nav-link text-white d-flex align-items-center cursor-pointer"
+                    >
                         <FaClinicMedical className="me-2" /> <span>Nhà Trọ</span>
-                        <AiOutlineDown className={`ms-auto ${isHospitalMenuOpen ? 'rotate-icon' : ''}`} />
+                        <AiOutlineDown className={`ms-auto ${isDormitoryMenuOpen ? 'rotate-icon' : ''}`} />
                     </div>
-                    {isHospitalMenuOpen && (
+                    {isDormitoryMenuOpen && (
                         <ul className="nav flex-column ms-3">
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/departments" className="nav-link text-white">
@@ -75,16 +85,18 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
                             </li>
                             <li className="nav-item my-2">
                                 <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Các Tương Tác</span>
+                                    <span>Các Tương Tác</span>
                                 </Link>
                             </li>
-                           
                         </ul>
                     )}
                 </li>
+
+                {/* Menu Social */}
                 <li className="nav-item my-2">
                     <Link href="/admin/sales" className="nav-link text-white d-flex align-items-center">
-                        <AiOutlineDashboard className="me-2" /> <span>Social</span> <span className="badge bg-success ms-auto">5</span>
+                        <AiOutlineDashboard className="me-2" /> <span>Social</span>
+                        <span className="badge bg-success ms-auto">5</span>
                     </Link>
                 </li>
             </ul>
@@ -110,19 +122,15 @@ const Header = ({ toggleSettings }) => (
         </div>
     </header>
 );
-
 const AdminLayout = ({ children }) => {
     const [isSidebarPinned, setSidebarPinned] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
-
     const toggleSidebarPin = () => {
         setSidebarPinned((prev) => !prev);
     };
-
     const toggleSettings = () => {
         setShowSettings((prev) => !prev);
     };
-
     return (
         <div className="d-flex">
             <Sidebar isSidebarPinned={isSidebarPinned} toggleSidebarPin={toggleSidebarPin} />
@@ -159,5 +167,4 @@ const AdminLayout = ({ children }) => {
         </div>
     );
 };
-
 export default AdminLayout;
