@@ -9,12 +9,12 @@ import { FaClinicMedical, FaUser } from 'react-icons/fa';
 import { BsSearch } from 'react-icons/bs';
 
 const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
-    const [isHospitalMenuOpen, setHospitalMenuOpen] = useState(false);
+    const [isHospitalMenuOpen, setHospitalMenuOpen] = useState(false); // State for Bài Đăng
+    const [isDormitoryMenuOpen, setDormitoryMenuOpen] = useState(false); // State for Nhà Trọ
     const [isSidebarHovered, setSidebarHovered] = useState(false);
 
-    const toggleHospitalMenu = () => {
-        setHospitalMenuOpen(!isHospitalMenuOpen);
-    };
+    const toggleHospitalMenu = () => setHospitalMenuOpen((prev) => !prev);
+    const toggleDormitoryMenu = () => setDormitoryMenuOpen((prev) => !prev);
 
     const handleMouseEnter = () => {
         if (!isSidebarPinned) setSidebarHovered(true);
@@ -26,71 +26,73 @@ const Sidebar = ({ isSidebarPinned, toggleSidebarPin }) => {
 
     return (
         <nav
-            className={`sidebar ${isSidebarPinned || isSidebarHovered ? 'expanded' : ''} bg-dark text-white vh-100 p-3`}
+            className={`sidebar ${isSidebarPinned || isSidebarHovered ? 'expanded' : ''}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
             <div className="d-flex justify-content-between align-items-center">
-                <h3 className="text-uppercase">Logo</h3>
-                <button onClick={toggleSidebarPin} className="btn btn-sm text-white ms-auto">
+                <h3 className="sidebar-header text-uppercase">Logo</h3>
+                <button onClick={toggleSidebarPin} className="pin-button">
                     <AiOutlinePushpin size={20} className={isSidebarPinned ? 'text-warning' : ''} />
                 </button>
             </div>
-
             <ul className="nav flex-column mt-4">
-              
+                {/* Menu Bài Đăng */}
                 <li className="nav-item my-2">
-                <div onClick={toggleHospitalMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
-                        <FaClinicMedical className="me-2" /> <span>Bài Đăng</span>
-                        <AiOutlineDown className={`ms-auto ${isHospitalMenuOpen ? 'rotate-icon' : ''}`} />
+                    <div
+                        onClick={toggleHospitalMenu}
+                        className="nav-link cursor-pointer"
+                    >
+                        <FaClinicMedical className="icon" />
+                        <span className="text">Bài Đăng</span>
+                        <AiOutlineDown className={`dropdown-icon ms-auto ${isHospitalMenuOpen ? 'rotate-icon' : ''}`} />
                     </div>
                     {isHospitalMenuOpen && (
                         <ul className="nav flex-column ms-3">
                             <li className="nav-item my-2">
-                                <Link href="/admin/crud_baidang" className="nav-link text-white">
+                                <Link href="/admin/crud_baidang" className="nav-link">
                                     <span>CRUD</span>
                                 </Link>
                             </li>
                             <li className="nav-item my-2">
-                                <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Các Tương Tác</span>
+                                <Link href="/admin/hospital/staff" className="nav-link">
+                                    <span>Các Tương Tác</span>
                                 </Link>
                             </li>
-                           
                         </ul>
                     )}
                 </li>
 
+                {/* Menu Nhà Trọ */}
                 <li className="nav-item my-2">
-                    <div onClick={toggleHospitalMenu} className="nav-link text-white d-flex align-items-center cursor-pointer">
-                        <FaClinicMedical className="me-2" /> <span>Nhà Trọ</span>
-                        <AiOutlineDown className={`ms-auto ${isHospitalMenuOpen ? 'rotate-icon' : ''}`} />
+                    <div
+                        onClick={toggleDormitoryMenu}
+                        className="nav-link cursor-pointer"
+                    >
+                        <FaClinicMedical className="icon" />
+                        <span className="text">Nhà Trọ</span>
+                        <AiOutlineDown className={`dropdown-icon ms-auto ${isDormitoryMenuOpen ? 'rotate-icon' : ''}`} />
                     </div>
-                    {isHospitalMenuOpen && (
+                    {isDormitoryMenuOpen && (
                         <ul className="nav flex-column ms-3">
                             <li className="nav-item my-2">
-                                <Link href="/admin/hospital/departments" className="nav-link text-white">
+                                <Link href="/admin/hospital/departments" className="nav-link">
                                     <span>CRUD Thông Tin</span>
                                 </Link>
                             </li>
                             <li className="nav-item my-2">
-                                <Link href="/admin/hospital/staff" className="nav-link text-white">
-                                    <span> Các Tương Tác</span>
+                                <Link href="/admin/hospital/staff" className="nav-link">
+                                    <span>Các Tương Tác</span>
                                 </Link>
                             </li>
-                           
                         </ul>
                     )}
-                </li>
-                <li className="nav-item my-2">
-                    <Link href="/admin/sales" className="nav-link text-white d-flex align-items-center">
-                        <AiOutlineDashboard className="me-2" /> <span>Social</span> <span className="badge bg-success ms-auto">5</span>
-                    </Link>
                 </li>
             </ul>
         </nav>
     );
 };
+
 
 const Header = ({ toggleSettings }) => (
     <header className="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
